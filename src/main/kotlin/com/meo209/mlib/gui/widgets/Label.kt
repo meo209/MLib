@@ -23,12 +23,12 @@ class Label(id: String) : Widget(id) {
         val textRenderer = MinecraftClient.getInstance().textRenderer
 
         if (centered) {
-            val textY = position.y + (dimension.y - textRenderer.fontHeight) / 2 + 1
+            val textY = position.y + (dimension.height - textRenderer.fontHeight) / 2
 
             context.drawCenteredTextWithShadow(
                 textRenderer,
                 text,
-                position.x + dimension.x / 2,
+                position.x + dimension.width / 2,
                 textY,
                 16777215
             )

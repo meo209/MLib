@@ -2,7 +2,6 @@ package com.meo209.mlib.gui.widgets
 
 import com.meo209.mlib.gui.Widget
 import com.mojang.blaze3d.systems.RenderSystem
-import net.minecraft.client.MinecraftClient
 import net.minecraft.client.gui.DrawContext
 import net.minecraft.client.gui.screen.ButtonTextures
 import net.minecraft.util.Identifier
@@ -14,6 +13,14 @@ class Button(id: String) : Widget(id) {
     private var onPressAction: (() -> Unit)? = null
 
     var active: Boolean = true
+
+    private val label: Label = Label("${id}_label").apply {
+        centered()
+    }
+
+    init {
+        addChild(label)
+    }
 
     fun activate() {
         active = true
@@ -41,20 +48,14 @@ class Button(id: String) : Widget(id) {
             textures[this.active, isMouseOver(mouse)],
             position.x,
             position.y,
-            dimension.x,
-            dimension.y
+            dimension.width,
+            dimension.height
         )
 
-        val textRenderer = MinecraftClient.getInstance().textRenderer
-        val textY = position.y + (dimension.y - textRenderer.fontHeight) / 2 + 1
+        label.position(position.x + (dimension.width - label.dimension.height) / 2, position.y + (dimension.height - label.dimension.height) / 2)
+        label.text = text
 
-        context.drawCenteredTextWithShadow(
-            textRenderer,
-            text,
-            position.x + dimension.x / 2,
-            textY,
-            16777215
-        )
+        renderChildren(context, mouse)
     }
 
     override fun handleMouseClick(mouse: Vector2i, button: Int): Boolean {
