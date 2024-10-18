@@ -27,4 +27,8 @@ abstract class Widget(val id: String) {
     open fun handleMouseClick(mouse: Vector2i, button: Int): Boolean {
         return false
     }
+
+    open fun handleMouseDrag(mouse: Vector2i, delta: Vector2i, button: Int): Boolean {
+        return false
+    }
 }

@@ -19,7 +19,12 @@ class MinecraftScreenAdapter(private val screen: MScreen): Screen(Text.literal(s
 
     override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
         screen.mouseClicked(Vector2i(mouseX.toInt(), mouseY.toInt()), button)
-        return false
+        return true
+    }
+
+    override fun mouseDragged(mouseX: Double, mouseY: Double, button: Int, deltaX: Double, deltaY: Double): Boolean {
+        screen.mouseDragged(Vector2i(mouseX.toInt(), mouseY.toInt()), Vector2i(deltaX.toInt(), deltaY.toInt()), button)
+        return true
     }
 
 }

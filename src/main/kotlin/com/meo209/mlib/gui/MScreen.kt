@@ -35,6 +35,13 @@ open class MScreen {
         }
     }
 
+    fun mouseDragged(mouse: Vector2i, delta: Vector2i, button: Int) {
+        widgets.forEach { widget ->
+            if (widget.visible && widget.isMouseOver(mouse))
+                widget.handleMouseDrag(mouse, delta, button)
+        }
+    }
+
     fun <T : Widget> modify(id: String, type: Class<T>, action: (T) -> Unit) {
         val widget = widgets.find { it.id == id }
         if (widget != null && type.isInstance(widget)) {

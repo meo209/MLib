@@ -73,6 +73,20 @@ class TestScreen : MScreen() {
                 text = "Not checked."
                 position(10, 100)
             }
+
+            slider("bobSlider") {
+                position(10, 120)
+                dimension(100, 20)
+
+                numberSegment(2, 0.0, 150.0)
+            }
+
+            slider("bobSlider2") {
+                position(10, 150)
+                dimension(100, 20)
+
+                textSegment("Hello", "World", "!")
+            }
         }
     }
 }
