@@ -10,35 +10,13 @@ abstract class Widget(val id: String) {
 
     var visible: Boolean = true
 
-    protected var parent: Widget? = null
-    protected val children = mutableListOf<Widget>()
-
     fun position(x: Int, y: Int) {
-        this.position = Vector2i(
-            if (parent == null) x else parent!!.position.x + x,
-            if (parent == null) y else parent!!.position.y + y
-        )
+        this.position = Vector2i(x, y)
     }
 
     fun dimension(width: Int, height: Int) {
-        this.dimension = Vector2i(
-            if (parent == null) width else parent!!.dimension.x + width,
-            if (parent == null) height else parent!!.dimension.y + height
-        )
+        this.dimension = Vector2i(width, height)
     }
-
-    fun <T : Widget> child(vararg children: T) =
-        this.children.addAll(children)
-            .also { children.forEach { child -> child.parent = this } }
-            .let { children }
-
-    fun <T : Widget> child(children: T) =
-        this.children.add(children)
-            .let { children }
-
-    @Suppress("UNCHECKED_CAST")
-    fun <T : Widget> getCastedParent() =
-        parent as T
 
     abstract fun render(context: DrawContext, mouse: Vector2i)
 

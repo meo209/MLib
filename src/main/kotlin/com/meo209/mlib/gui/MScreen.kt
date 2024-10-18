@@ -9,7 +9,7 @@ open class MScreen {
 
     var title: String = ""
     var surface: Surface = Surface.OPAQUE
-    private val widgets = mutableListOf<Widget>()
+    private val widgets = mutableSetOf<Widget>()
 
     open fun build() {}
 

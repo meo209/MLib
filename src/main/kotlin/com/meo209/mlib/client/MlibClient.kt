@@ -3,7 +3,10 @@ package com.meo209.mlib.client
 import com.meo209.mlib.Surface
 import com.meo209.mlib.gui.MScreen
 import com.meo209.mlib.gui.widgets.Label
+import com.meo209.mlib.util.TimeUtil
 import net.fabricmc.api.ClientModInitializer
+import java.util.Timer
+import java.util.TimerTask
 
 class MlibClient : ClientModInitializer {
 
@@ -18,7 +21,6 @@ class TestScreen : MScreen() {
         surface = Surface.TRANSPARENT
 
         widgets {
-
             button("disableButton") {
                 text = "Disable Button"
                 position(10, 20)
@@ -36,20 +38,41 @@ class TestScreen : MScreen() {
                 position(10, 50)
                 dimension(100, 20)
 
-                child(label("label") {
-                    text = "Not pressed."
-                    position(120, 50)
-                })
-
                 onPress {
                     println("Button pressed")
 
-                    modify("label", Label::class.java) { label ->
+                    modify("pressedLabel", Label::class.java) { label ->
                         label.text = "Pressed!"
+
+                        TimeUtil.runAfter({
+                            label.text = "Not Pressed."
+                        }, 1250)
                     }
                 }
             }
 
+            label("pressedLabel") {
+                text = "Not pressed."
+                position(120, 50)
+            }
+
+            checkbox("testCheckbox") {
+                position(10, 80)
+
+                onToggle {
+                    modify("checkedLabel", Label::class.java) { label ->
+                        if (checked)
+                            label.text = "Checked."
+                        else
+                            label.text = "Not Checked."
+                    }
+                }
+            }
+
+            label("checkedLabel") {
+                text = "Not checked."
+                position(10, 100)
+            }
         }
     }
 }

@@ -44,8 +44,6 @@ class Button(id: String) : Widget(id) {
             dimension.x,
             dimension.y
         )
-        context.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f)
-        val color = if (this.active) 16777215 else 10526880
 
         val textRenderer = MinecraftClient.getInstance().textRenderer
         val textY = position.y + (dimension.y - textRenderer.fontHeight) / 2 + 1
@@ -55,7 +53,7 @@ class Button(id: String) : Widget(id) {
             text,
             position.x + dimension.x / 2,
             textY,
-            color
+            16777215
         )
     }
 

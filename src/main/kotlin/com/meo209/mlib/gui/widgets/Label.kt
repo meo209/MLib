@@ -22,14 +22,26 @@ class Label(id: String) : Widget(id) {
     override fun render(context: DrawContext, mouse: Vector2i) {
         val textRenderer = MinecraftClient.getInstance().textRenderer
 
-        context.drawText(
-            textRenderer,
-            text,
-            position.x,
-            position.y,
-            16777215,
-            true
-        )
+        if (centered) {
+            val textY = position.y + (dimension.y - textRenderer.fontHeight) / 2 + 1
+
+            context.drawCenteredTextWithShadow(
+                textRenderer,
+                text,
+                position.x + dimension.x / 2,
+                textY,
+                16777215
+            )
+        } else {
+            context.drawText(
+                textRenderer,
+                text,
+                position.x,
+                position.y,
+                16777215,
+                true
+            )
+        }
     }
 
 }
